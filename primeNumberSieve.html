@@ -1,0 +1,215 @@
+<html>
+<head>
+	<!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.3.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/work.css">
+</head>
+<body>
+	<div class="container">
+		
+			<div class="header">
+				<a class="btn btn-default" href="index.html" role="button"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+				
+			<h1 id="title"> Prime Number Sieve </h1>
+			</div>
+			<hr>
+
+<div class="col-md-8 col-md-offset-2">
+				
+					<p>Prime numbers are extremely interesting, still  very much an enigma of mathematics. Calculating prime numbers and testing if numbers are prime in particular, is even more interesting from a computational perspective. </p>
+					<h3> What makes a prime number and how do we compute if a number is prime? </h3>
+					<p>A prime number is one that only consists of the factors 1 and itself. The number 1 itself, however, is agreed to be non-prime.</p>
+					<p> So how would we compute this? Well, the first logical solution is to iterate from 1 to the number in question (let's say 'n') and for each number, test whether it divides into n an integer number of times and hence is a factor. See below:</p> 
+					
+				
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Show code - <i>i</i>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+<pre>
+	public static boolean isPrime(int n){
+         if(n<=1){return false;}
+         if(n % 2 ==0 && n!=2){return false;}
+         
+         for(int i=3;i<=n;i+=2) {
+         if(n%i==0){
+            return false;}
+         }   
+        return true;
+	}
+</pre>
+      </div>
+      <p>This function takes an integer to test, if the number is 1 or less then it is not a prime. If the number is a multiple of 2 (but not 2 itself as 2 is prime) then the number is not a prime. Finally, iterate through from 3 to n, using modulus to get a remainder and hence if the remainder is zero, then it's a factor of n and hence n is not prime.</p>
+    </div>
+  </div>
+</div>
+
+	<p>This works fine and is seemingly quick for large numbers, however when it comes to computing this function many times it can quickly slow the program down. There is a simple way to improve this algorithm.</p>
+
+	<p>At the moment, algorithm iterates all the way up to n, however this is not neccessary. Once we reach the Square Root of n, the divsors flip around and repeat (i.e for <i>n=100</i> once we get to 10, the factor pairs start to repeat). So we can immediately eliminate a big chunk of our range that we have to iterate through, saving a lot of computational time in bigger programs.</p>
+
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          Show code - <i>i - adapted</i>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+<pre>
+	public static boolean isPrime(int n){
+         if(n<=1){return false;}
+         if(n % 2 ==0 && n!=2){return false;}
+         
+         for(int i=3;i<=Math.sqrt(n);i+=2) {
+         if(n%i==0){
+            return false;}
+         }   
+        return true;
+	}
+</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3> Application with Sieve of Eratosthenes </h3>
+
+<p> The <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> is a famous algorithm for calculating the primes up to a given limit. This incoperates the above algorithm for primality testing, but applying it many times to find a list of prime numbers. </p>
+<p> A common solution for finding all the primes up to a given limit would be to iterate over all numbers and then using our <i>isPrime(n)</i> function on each to test and if it is prime, flag it. An example of this would be:
+
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+          Show code - ii
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+<pre>
+public static boolean isPrime(int n){ 
+
+        if(n % 2 ==0){return false;}
+    
+        for(int i=3;i<=Math.sqrt(n);i+=2) {
+        if(n%i==0){
+            return false;}
+        }   
+        return true;
+}
+public static boolean[] populatePrimeArray(boolean[] primes, int n){ 
+    
+        for(int i=2; i<=n; i++){primes[i]=true;}
+        for(int i=4; i<=n; i+=2){
+                primes[i] = false;
+        }   
+        for(int i=3; i<=n; i+=2){
+                if(!isPrime(i)){
+                        primes[i]=false;
+                }   
+        }   
+        return primes;
+}
+</pre>
+      </div>
+      <p> The <i>populatePrimeArray</i> function alters an array of booleans, true if prime and false if not. It starts by assuming all numbers are prime and then we iterate through and set the non-primes to false.</p>
+    </div>
+  </div>
+</div>	
+
+<p> Now, interestingly, if we run this script with the limit being 2 million the deviation in execution time between the use of our original <i>isPrime</i> function and our adapted one is significant. </p>
+		<p>Using the first version (</i> without the Math.sqrt()</i>) the program takes <i>5m 49.901s</i> to elapse. This is compared with <i> 0m 0.520s</i> for our adapted version!</p>
+
+		<p> Although using our adaption dramatically speeds our our computation, we can still apply the Sieve of Eratostenes, to increase the efficency further. </p>
+		<p> Currently, the algorithm simply interates through all numbers in the array, up to the limit, running <i> isPrime(n)</i> on every single one. We can improve this by elimiating numbers from the array and saving time by not having to test whether they are prime or not.</p>
+		<p> For Example, we have worked out that 7 is prime. We now also know that further multiple of 7 will not be prime. So it makes sense to now iterate through the array and mark all multiple of 7 as false. We can add this into our program, starting at 7<sup>2</sup> as multiples below this will have already been crossed off due to the nature of our algorithms.</p>
+
+		<p> The origin for this coding task was from the website <a href="https://projecteuler.net/about">ProjectEuler</a>. <i>Calculate the sum of the primes up to 2,000,000.</i> By applying our algorithms and summing the array of primes together, our final code will look something like this: </p>
+
+
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+          Show code - iii
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+<pre>
+  1 class problem10{
+  2 
+  3 public static void main(String[] args){
+  4         boolean[] primes = new boolean[2000000 + 1];
+  5         primes = populatePrimeArray(primes, primes.length -1);
+  6         long sum = returnSum(primes);
+  7         System.out.println(sum);
+  8 }
+  9 
+ 10 public static boolean isPrime(int n){
+ 11 
+ 12         if(n % 2 ==0){return false;}
+ 13 
+ 14         for(int i=3;i<=Math.sqrt(n);i+=2) {
+ 15         if(n%i==0){
+ 16             return false;}
+ 17         }
+ 18         return true;
+ 19 }
+ 20 public static boolean[] populatePrimeArray(boolean[] primes, int n){
+ 21 
+ 22         for(int i=2; i<=n; i++){primes[i]=true;}
+ 23         for(int i=4; i<=n; i+=2){
+ 24                 primes[i] = false;
+ 25         }
+ 26         for(int i=3; i<=n; i+=2){
+ 27                 if(isPrime(i)){
+ 28                         for(long j=((long)i*(long)i);j<=(long)n; j+=i){
+ 29                                 primes[(int)j]=false;
+ 30                         }       
+ 31                 }       
+ 32         }       
+ 33         return primes;
+ 34 }       
+ 35 public static long returnSum(boolean[] primes){
+ 36         long sum = 0;
+ 37         for(int i=1; i<=primes.length-1;i++){
+ 38                 if(primes[i]==true){sum += i;}
+ 39         }       
+ 40         return sum;
+ 41 }       
+ 42 }
+</pre>
+      </div>
+      	<p> There was some interesting points regarding java syntax here. I recieved wrong outputs due to an unsigned integer overflow error. This occured on line 28, where two integers were being multipled together and the result was a long, so some casting fixed that.</p>
+    </div>
+  </div>
+</div>
+	<p> Of course, there are ways of improving this code further but this was just an experiment and research into the effect that these prime number sieves have on the computation.</p>
+				</div>
+	</div>
+
+		
+
+	
+</body>
+</html>
