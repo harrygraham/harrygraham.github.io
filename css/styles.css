@@ -27,11 +27,11 @@ hr {
   margin-bottom: 2px;
 }
 .bg-1 {
-	background: url('../images/bg2_trans.png') no-repeat center center fixed;
+	background: url('../images/bg1_trans2.png') no-repeat center center fixed;
     color:#fff;
     background-size:cover;
     background-position: bottom;
-
+    
 }
   
 .bg-2 {
@@ -50,6 +50,7 @@ hr {
 	background: url('../images/bg3_trans.png') no-repeat bottom center fixed;
     color:#fff;
     background-size:cover;
+
 }
 
 #footer {
