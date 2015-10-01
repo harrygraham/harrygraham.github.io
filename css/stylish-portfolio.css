@@ -150,15 +150,7 @@ hr.small {
     text-align: center;
 }
 
-/* Services */
 
-.services {
-    padding: 50px 0;
-}
-
-.service-item {
-    margin-bottom: 30px;
-}
 
 /* Callout */
 
@@ -167,7 +159,7 @@ hr.small {
     width: 100%;
     height: 400px;
     color: #fff;
-    background: url(../img/callout.jpg) no-repeat center center scroll;
+    background: url(../img/bg2_trans2.png) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -192,15 +184,7 @@ hr.small {
     opacity: 0.8;
 }
 
-/* Call to Action */
 
-.call-to-action {
-    padding: 50px 0;
-}
-
-.call-to-action .btn {
-    margin: 10px;
-}
 
 /* Map */
 
@@ -221,5 +205,5 @@ hr.small {
 /* Footer */
 
 footer {
-    padding: 100px 0;
+    padding: 50px 0;
 }
