@@ -18,6 +18,11 @@ font-family: "Quicksand-Bold";
 src: url("../quicksand/Quicksand-Bold.otf");
 }
 
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+}
+
 html,
 body {
     width: 100%;
@@ -106,6 +111,7 @@ span.glyphicon-menu-down {
     margin-top: 25%;
     color: white;
 }
+
 
 /* Custom Horizontal Rule */
 
